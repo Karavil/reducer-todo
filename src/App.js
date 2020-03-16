@@ -1,6 +1,41 @@
 import React, { useReducer, useState } from "react";
 import { itemsReducer, initialItems } from "./reducers/itemsReducer";
+
+import styled, { createGlobalStyle } from "styled-components";
+
 import Item from "./components/Item";
+
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+
+const Global = createGlobalStyle`
+   * {
+      box-sizing: border-box;
+   }
+   body {
+      margin: 0;
+   }
+`;
+const Container = styled.div`
+   display: flex;
+   width: 100%;
+   justify-content: center;
+
+   box-shadow: 0 0 10px black;
+`;
+
+const InputContainer = styled.div`
+   display: flex;
+   justify-content: space-around;
+   align-items: flex-end;
+   width: 700px;
+   padding: 20px 0 40px;
+`;
+
+const ItemContainer = styled.div`
+   background: black;
+   padding: 5px 0;
+`;
 
 function App() {
    const [items, itemsDispatch] = useReducer(itemsReducer, initialItems);
@@ -14,7 +49,8 @@ function App() {
             name: itemName,
             completed: false,
             id: Date.now(),
-            tags: itemTags.replace(" ", "").split(",")
+            tags:
+               itemTags.length > 0 ? itemTags.replace(" ", "").split(",") : []
          }
       });
    };
@@ -32,15 +68,28 @@ function App() {
 
    return (
       <>
-         To-Do task name:
-         <input type="text" onChange={e => setItemName(e.target.value)} />
-         Task tags (seperate by comma):
-         <input type="text" onChange={e => setTags(e.target.value)} />
-         <button onClick={submitNewItem}>Add Item</button>
-         <button onClick={() => itemsDispatch({ type: "CLEAR_ITEMS" })}>
-            Clear Items
-         </button>
-         {itemCards}
+         <Global />
+         <Container>
+            <InputContainer>
+               <TextField
+                  label="Task name"
+                  onChange={e => setItemName(e.target.value)}
+               />
+               <TextField
+                  label="Tags"
+                  onChange={e => setTags(e.target.value)}
+               />
+               <Button onClick={submitNewItem}>Add Item</Button>
+               <Button onClick={() => itemsDispatch({ type: "CLEAR_ITEMS" })}>
+                  Clear Items
+               </Button>
+            </InputContainer>
+         </Container>
+         {itemCards.length > 0 ? (
+            <ItemContainer>{itemCards}</ItemContainer>
+         ) : (
+            <></>
+         )}
       </>
    );
 }
