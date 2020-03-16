@@ -16,6 +16,8 @@ export const itemsReducer = (items, action) => {
             }
             return item;
          });
+      case "CLEAR_ITEMS":
+         return [];
       default:
          return items;
    }

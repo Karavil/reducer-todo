@@ -32,6 +32,9 @@ function App() {
       <>
          <input type="text" onChange={e => setItemName(e.target.value)} />
          <button onClick={submitNewItem}>Add Item</button>
+         <button onClick={() => itemsDispatch({ type: "CLEAR_ITEMS" })}>
+            Clear Items
+         </button>
          {itemCards}
       </>
    );

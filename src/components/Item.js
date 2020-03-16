@@ -7,7 +7,7 @@ const Card = styled.div`
    color: white;
    padding: 20px;
 
-   opacity: ${({ completed }) => (completed ? "0.5" : "1")};
+   opacity: ${({ completed }) => (completed ? "0.2" : "1")};
 
    &:hover {
       cursor: pointer;
