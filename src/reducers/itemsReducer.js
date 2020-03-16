@@ -18,6 +18,16 @@ export const itemsReducer = (items, action) => {
          });
       case "CLEAR_ITEMS":
          return [];
+      case "ADD_TAGS":
+         return items.map(item => {
+            if (item.id === action.payload.id) {
+               return {
+                  ...item,
+                  tags: [...item.tags, ...action.payload.tags]
+               };
+            }
+            return item;
+         });
       default:
          return items;
    }

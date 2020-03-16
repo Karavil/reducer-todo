@@ -12,13 +12,20 @@ const Card = styled.div`
    &:hover {
       cursor: pointer;
    }
+
+   .tags {
+      display: flex;
+      flex-direction: column;
+   }
 `;
 
 const Item = ({ item, toggleItem }) => {
+   const tags = item.tags.map(tag => <b>{`${tag}`}</b>);
    return (
       <Card completed={item.completed} onClick={() => toggleItem(item.id)}>
          <h1>{item.name}</h1>
          <p>{item.completed ? "Complete" : "Not Complete"}</p>
+         <div className="tags">Tags: {tags}</div>
       </Card>
    );
 };

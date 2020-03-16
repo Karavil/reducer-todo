@@ -5,6 +5,7 @@ import Item from "./components/Item";
 function App() {
    const [items, itemsDispatch] = useReducer(itemsReducer, initialItems);
    const [itemName, setItemName] = useState("");
+   const [itemTags, setTags] = useState("");
 
    const submitNewItem = () => {
       itemsDispatch({
@@ -12,7 +13,8 @@ function App() {
          payload: {
             name: itemName,
             completed: false,
-            id: Date.now()
+            id: Date.now(),
+            tags: itemTags.replace(" ", "").split(",")
          }
       });
    };
@@ -30,7 +32,10 @@ function App() {
 
    return (
       <>
+         To-Do task name:
          <input type="text" onChange={e => setItemName(e.target.value)} />
+         Task tags (seperate by comma):
+         <input type="text" onChange={e => setTags(e.target.value)} />
          <button onClick={submitNewItem}>Add Item</button>
          <button onClick={() => itemsDispatch({ type: "CLEAR_ITEMS" })}>
             Clear Items
