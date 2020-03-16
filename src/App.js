@@ -17,7 +17,16 @@ function App() {
       });
    };
 
-   const itemCards = items.map(item => <Item item={item} key={item.id} />);
+   const toggleItem = itemID => {
+      itemsDispatch({
+         type: "TOGGLE_ITEM",
+         payload: itemID
+      });
+   };
+
+   const itemCards = items.map(item => (
+      <Item item={item} key={item.id} toggleItem={toggleItem} />
+   ));
 
    return (
       <>
