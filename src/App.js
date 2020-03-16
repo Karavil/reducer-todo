@@ -4,14 +4,25 @@ import Item from "./components/Item";
 
 function App() {
    const [items, itemsDispatch] = useReducer(itemsReducer, initialItems);
-   const [newItem, setNewItem] = useState("");
+   const [itemName, setItemName] = useState("");
 
-   const itemCards = items.map(item => <Item item={item} />);
+   const submitNewItem = () => {
+      itemsDispatch({
+         type: "ADD_ITEM",
+         payload: {
+            name: itemName,
+            completed: false,
+            id: Date.now()
+         }
+      });
+   };
+
+   const itemCards = items.map(item => <Item item={item} key={item.id} />);
 
    return (
       <>
-         <input type="text" />
-         <button>Add Item</button>
+         <input type="text" onChange={e => setItemName(e.target.value)} />
+         <button onClick={submitNewItem}>Add Item</button>
          {itemCards}
       </>
    );
